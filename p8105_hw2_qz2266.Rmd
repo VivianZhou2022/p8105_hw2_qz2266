@@ -71,3 +71,23 @@ The total weight of trash collected by Professor Trash Wheel is `r round(sum(pul
 
 The total number of sports balls collected by Mr. Trash Wheel in 2020 is `r round(sum(pull(filter(mr_trash_wheel, year == 2020), sports_balls), na.rm = TRUE))`. If we use the combined data set, the number is the same. It is `r round(sum(pull(filter(trash_wheel, trash_wheel_type == 'Mr.' & year == 2020),  sports_balls), na.rm = TRUE))`.
 
+
+# Problem 3
+
+## Clean the data in pols-month.csv.
+
+```{r read_pols_month}
+pols = read_csv("data/fivethirtyeight_datasets/fivethirtyeight_datasets/pols-month.csv") %>%
+  janitor::clean_names() %>%
+  
+  separate(col = mon, into = c("year", "month", "day")) %>%
+  mutate(
+    year = as.integer(year), 
+    day = as.integer(day),
+    month = month.name[as.integer(month)]) %>%
+  
+  mutate(president = recode(prez_dem, `1` = "dem", `0` = "gop")) %>%
+  select(-prez_gop, -prez_dem, -day)
+```
+
+
