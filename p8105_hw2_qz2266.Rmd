@@ -90,4 +90,23 @@ pols = read_csv("data/fivethirtyeight_datasets/fivethirtyeight_datasets/pols-mon
   select(-prez_gop, -prez_dem, -day)
 ```
 
+## Clean the data in snp.csv.
+
+```{r read_snp}
+
+library(lubridate)
+
+snp = read_csv("data/fivethirtyeight_datasets/fivethirtyeight_datasets/snp.csv") %>%
+  janitor::clean_names() %>%
+  
+  mutate(date = lubridate::parse_date_time2(date, orders = "mdy", cutoff_2000 = 23)) %>%
+  separate(col = date, into = c("year", "month", "day")) %>%
+  mutate(
+    year = as.integer(year), 
+    day = as.integer(day)) %>%
+  arrange(year, month) %>%
+  mutate(month = month.name[as.integer(month)]) %>%
+  
+  select(year, month, day, close)
+```
 
