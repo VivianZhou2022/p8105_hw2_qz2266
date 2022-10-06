@@ -41,3 +41,20 @@ prof_trash_wheel =
   janitor::clean_names() %>% 
   drop_na(dumpster) 
 ```
+
+## Add a new variable to keep track of which Trash Wheel is which.
+
+```{r}
+mr_trash_wheel_new = mutate(mr_trash_wheel, trash_wheel_type = "Mr.") %>%
+                     relocate(trash_wheel_type, .before = dumpster) 
+                     
+prof_trash_wheel_new = mutate(prof_trash_wheel, trash_wheel_type = "Prof.") %>% 
+                       relocate(trash_wheel_type, .before = dumpster) 
+```                       
+
+## Combine two datasets
+
+```{r}
+trash_wheel = 
+  bind_rows(mr_trash_wheel_new, prof_trash_wheel_new)
+```
