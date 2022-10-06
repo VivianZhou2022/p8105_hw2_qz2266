@@ -58,3 +58,16 @@ prof_trash_wheel_new = mutate(prof_trash_wheel, trash_wheel_type = "Prof.") %>%
 trash_wheel = 
   bind_rows(mr_trash_wheel_new, prof_trash_wheel_new)
 ```
+
+## Data discription
+
+The original mr_trash_wheel data set has `r ncol(mr_trash_wheel)` variables, including `r colnames(mr_trash_wheel)`, and `r nrow(mr_trash_wheel)` observations. 
+The original prof_trash_wheel data set has `r ncol(prof_trash_wheel)` variables, including `r colnames(prof_trash_wheel)`, and `r nrow(prof_trash_wheel)` observations. 
+As for the combined data set, there are `r ncol(trash_wheel)` variables, and `r nrow(trash_wheel)` observations. Key variables are measurements of trash collected, including weight,volume and trash type, such as plastic bottles, cigarette butts, grocery bags -- in addition to the date of the collection.
+
+
+The total weight of trash collected by Professor Trash Wheel is `r round(sum(pull(prof_trash_wheel, weight_tons), na.rm = TRUE))` tons. Similarly, if we use the combined data set, it would be `r round(sum(pull(filter(trash_wheel, trash_wheel_type == 'Prof.'),  weight_tons), na.rm = TRUE))` tons.
+
+
+The total number of sports balls collected by Mr. Trash Wheel in 2020 is `r round(sum(pull(filter(mr_trash_wheel, year == 2020), sports_balls), na.rm = TRUE))`. If we use the combined data set, the number is the same. It is `r round(sum(pull(filter(trash_wheel, trash_wheel_type == 'Mr.' & year == 2020),  sports_balls), na.rm = TRUE))`.
+
