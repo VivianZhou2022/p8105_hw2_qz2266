@@ -29,3 +29,15 @@ mr_trash_wheel =
   mutate(sports_balls = as.integer(round(sports_balls, digits = 0)),year = as.integer(year))
   
 ```
+
+## Read and clean the Professor Trash Wheel sheet.
+
+```{r}
+prof_trash_wheel = 
+  read_excel("data/Trash Wheel Collection data-new.xlsx", 
+  sheet = "Professor Trash Wheel", 
+  range =  cell_cols("A:M"), skip = 1) %>% 
+  
+  janitor::clean_names() %>% 
+  drop_na(dumpster) 
+```
