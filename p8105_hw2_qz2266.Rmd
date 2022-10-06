@@ -126,3 +126,15 @@ unemp =
   janitor::clean_names() %>%
   mutate(year = as.integer(year))
 ```
+
+## Merge the data sets
+
+```{r merge}
+snp_pols_merge = 
+  left_join(pols, snp, by = c("year","month")) %>%
+  relocate(year, month, day)
+
+merge_538 = 
+  left_join(snp_pols_merge, unemp, by = c("year","month"))
+  
+```
