@@ -5,3 +5,12 @@ date: "2022-10-05"
 output: github_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE)
+```
+
+```{r libraries}
+library(tidyverse)
+library(readxl)
+```
+
