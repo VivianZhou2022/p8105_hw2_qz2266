@@ -110,3 +110,19 @@ snp = read_csv("data/fivethirtyeight_datasets/fivethirtyeight_datasets/snp.csv")
   select(year, month, day, close)
 ```
 
+## Clean the data in unemployment.csv.
+
+ 
+```{r read_unemployment}
+unemp =
+  read_csv("data/fivethirtyeight_datasets/fivethirtyeight_datasets/unemployment.csv") %>%
+  pivot_longer(
+    Jan:Dec,
+    names_to = "month",
+    values_to = "unemp_rate"
+  ) %>%
+  mutate(month = match(month, month.abb)) %>%
+  mutate(month = month.name[month]) %>%
+  janitor::clean_names() %>%
+  mutate(year = as.integer(year))
+```
